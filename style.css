@@ -255,7 +255,15 @@ code {
     padding: 120px 24px 60px;
     position: relative;
     background: var(--gradient-hero);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     overflow: hidden;
+}
+
+/* When a background image is set, it overlays on top of the gradient */
+.hero[style*="background-image"] {
+    background-blend-mode: overlay;
 }
 
 .hero::before {
@@ -287,6 +295,56 @@ code {
     position: relative;
     z-index: 2;
     max-width: 750px;
+}
+
+/* Hero Profile Picture */
+.hero-profile {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    margin: 0 auto 24px;
+    position: relative;
+    overflow: hidden;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.hero-profile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-profile-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+
+.hero-profile-placeholder span {
+    font-size: 0.65rem;
+    line-height: 1.3;
+}
+
+.hero-profile-placeholder small {
+    opacity: 0.6;
+}
+
+.hero-profile-placeholder code {
+    background: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 0.6rem;
 }
 
 .hero-badge {
@@ -1303,6 +1361,20 @@ code {
 
 .footer-content {
     text-align: center;
+}
+
+.footer-home-btn {
+    margin-bottom: 20px;
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
+}
+
+.footer-home-btn:hover {
+    background: var(--accent-light);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
 }
 
 .footer-content p {

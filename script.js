@@ -168,9 +168,9 @@ heroObserver.observe(document.getElementById('hero'));
 // ============================================
 function setupScrollReveal() {
     const revealElements = document.querySelectorAll(
-        '.about-grid, .timeline-item, .gpa-card, .grades-table-wrapper, ' +
-        '.course-card, .project-card, .teaching-card, .goal-card, ' +
-        '.quote-block, .contact-grid'
+        '.about-grid, .timeline-item, ' +
+        '.course-card, .project-card, .teaching-card, ' +
+        '.contact-grid'
     );
 
     revealElements.forEach(el => el.classList.add('reveal'));
