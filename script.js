@@ -217,6 +217,30 @@ filterBtns.forEach(btn => {
 });
 
 // ============================================
+// TEACHING FILTER
+// ============================================
+const teachingFilterBtns = document.querySelectorAll('.teaching-filter .filter-btn');
+const teachingCards = document.querySelectorAll('.teaching-card');
+
+teachingFilterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        teachingFilterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-filter');
+
+        teachingCards.forEach(card => {
+            if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                card.classList.remove('hidden');
+                card.style.animation = 'fadeIn 0.4s ease';
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+    });
+});
+
+// ============================================
 // PARTICLES (Hero background)
 // ============================================
 function createParticles() {

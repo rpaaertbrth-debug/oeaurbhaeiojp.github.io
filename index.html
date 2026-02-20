@@ -405,11 +405,16 @@
             <h2 class="section-title">Teaching Experience</h2>
             <p class="section-subtitle">My experience as a Teaching Assistant (TA).</p>
 
-            <!-- M.Sc. TA -->
-            <h3 class="teaching-degree-heading"><span class="degree-badge msc">M.Sc.</span> Master's — Sharif University of Technology</h3>
+            <div class="teaching-filter">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="bsc">🎓 B.Sc.</button>
+                <button class="filter-btn" data-filter="msc">🎓 M.Sc.</button>
+            </div>
+
             <div class="teaching-grid">
-                <div class="teaching-card">
-                    <div class="teaching-semester">Fall 2025</div>
+                <!-- M.Sc. TA -->
+                <div class="teaching-card" data-category="msc">
+                    <div class="teaching-semester">Fall 2025 <span class="degree-badge msc">M.Sc.</span></div>
                     <h4>Mechanics of Materials</h4>
                     <p class="teaching-course-code">AE Department</p>
                     <p>Head TA — Assignment preparation, evaluation of student assignments and exams, coordinating tasks among the TA team.</p>
@@ -420,8 +425,8 @@
                         <span>Coordination</span>
                     </div>
                 </div>
-                <div class="teaching-card">
-                    <div class="teaching-semester">Fall 2025</div>
+                <div class="teaching-card" data-category="msc">
+                    <div class="teaching-semester">Fall 2025 <span class="degree-badge msc">M.Sc.</span></div>
                     <h4>Composite Materials</h4>
                     <p class="teaching-course-code">ME Department</p>
                     <p>Evaluation of student assignments.</p>
@@ -429,8 +434,8 @@
                         <span>Grading</span>
                     </div>
                 </div>
-                <div class="teaching-card">
-                    <div class="teaching-semester">Fall 2025</div>
+                <div class="teaching-card" data-category="msc">
+                    <div class="teaching-semester">Fall 2025 <span class="degree-badge msc">M.Sc.</span></div>
                     <h4>Foundations of Data Science</h4>
                     <p class="teaching-course-code">EE Department</p>
                     <p>Prepare lecture slides, design and grade quizzes.</p>
@@ -440,8 +445,8 @@
                         <span>Grading</span>
                     </div>
                 </div>
-                <div class="teaching-card">
-                    <div class="teaching-semester">Fall 2025</div>
+                <div class="teaching-card" data-category="msc">
+                    <div class="teaching-semester">Fall 2025 <span class="degree-badge msc">M.Sc.</span></div>
                     <h4>Aircraft Structures</h4>
                     <p class="teaching-course-code">AE Department</p>
                     <p>Conducting tutorial sessions, assignment and quiz preparation and evaluation.</p>
@@ -451,13 +456,10 @@
                         <span>Quizzes</span>
                     </div>
                 </div>
-            </div>
 
-            <!-- B.Sc. TA -->
-            <h3 class="teaching-degree-heading"><span class="degree-badge bsc">B.Sc.</span> Bachelor's — Sharif University of Technology</h3>
-            <div class="teaching-grid">
-                <div class="teaching-card">
-                    <div class="teaching-semester">Spring 2025</div>
+                <!-- B.Sc. TA -->
+                <div class="teaching-card" data-category="bsc">
+                    <div class="teaching-semester">Spring 2025 <span class="degree-badge bsc">B.Sc.</span></div>
                     <h4>Finite Element Methods</h4>
                     <p class="teaching-course-code">AE Department</p>
                     <p>Course preparation, evaluation and preparation of quizzes and assignments.</p>
@@ -467,8 +469,8 @@
                         <span>Assignments</span>
                     </div>
                 </div>
-                <div class="teaching-card">
-                    <div class="teaching-semester">Spring 2025</div>
+                <div class="teaching-card" data-category="bsc">
+                    <div class="teaching-semester">Spring 2025 <span class="degree-badge bsc">B.Sc.</span></div>
                     <h4>Probability and Statistics in Engineering</h4>
                     <p class="teaching-course-code">AE Department</p>
                     <p>Evaluation of quizzes and assignments.</p>
@@ -477,8 +479,8 @@
                         <span>Quizzes</span>
                     </div>
                 </div>
-                <div class="teaching-card">
-                    <div class="teaching-semester">Fall 2024</div>
+                <div class="teaching-card" data-category="bsc">
+                    <div class="teaching-semester">Fall 2024 <span class="degree-badge bsc">B.Sc.</span></div>
                     <h4>Aircraft Structures</h4>
                     <p class="teaching-course-code">AE Department</p>
                     <p>Conducting tutorial sessions, assignment and quiz preparation and evaluation.</p>
@@ -488,8 +490,8 @@
                         <span>Quizzes</span>
                     </div>
                 </div>
-                <div class="teaching-card">
-                    <div class="teaching-semester">Fall 2023</div>
+                <div class="teaching-card" data-category="bsc">
+                    <div class="teaching-semester">Fall 2023 <span class="degree-badge bsc">B.Sc.</span></div>
                     <h4>Dynamics</h4>
                     <p class="teaching-course-code">AE Department</p>
                     <p>Head TA — Course, assignment and quiz preparation.</p>
@@ -499,8 +501,8 @@
                         <span>Assignments</span>
                     </div>
                 </div>
-                <div class="teaching-card">
-                    <div class="teaching-semester">Fall 2023</div>
+                <div class="teaching-card" data-category="bsc">
+                    <div class="teaching-semester">Fall 2023 <span class="degree-badge bsc">B.Sc.</span></div>
                     <h4>Mechanics of Materials</h4>
                     <p class="teaching-course-code">AE Department</p>
                     <p>Head TA — Conducting tutorial sessions, assignment preparation, evaluation of student assignments and exams.</p>
@@ -510,8 +512,8 @@
                         <span>Exams</span>
                     </div>
                 </div>
-                <div class="teaching-card">
-                    <div class="teaching-semester">Spring 2023</div>
+                <div class="teaching-card" data-category="bsc">
+                    <div class="teaching-semester">Spring 2023 <span class="degree-badge bsc">B.Sc.</span></div>
                     <h4>Introduction to Aerospace Engineering</h4>
                     <p class="teaching-course-code">AE Department</p>
                     <p>Course preparation, lecturing, helping students with presentations, grading projects and exams.</p>

@@ -1126,25 +1126,16 @@ code {
 /* ============================================
    TEACHING
    ============================================ */
-.teaching-degree-heading {
+.teaching-filter {
     display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 1.15rem;
-    color: var(--text-primary);
-    margin-bottom: 20px;
-    margin-top: 40px;
-    padding-bottom: 12px;
-    border-bottom: 2px solid var(--border);
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
 }
 
-.teaching-degree-heading:first-of-type {
-    margin-top: 0;
-}
-
-.teaching-degree-heading .degree-badge {
-    font-size: 0.78rem;
-    padding: 4px 14px;
+.teaching-card.hidden {
+    display: none;
 }
 
 .teaching-grid {
