@@ -241,6 +241,301 @@ teachingFilterBtns.forEach(btn => {
 });
 
 // ============================================
+// STRUCTURAL ENGINEERING BACKGROUND
+// ============================================
+(function() {
+    const canvas = document.getElementById('structuralBg');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let W, H, scrollY = 0, mouseX = -1000, mouseY = -1000;
+    const nodes = [];
+    const beams = [];
+    const loads = [];
+    const NUM_NODES = 50;
+    const MOUSE_RADIUS = 180;
+
+    function resize() {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+    }
+
+    function isDark() {
+        return document.documentElement.getAttribute('data-theme') === 'dark';
+    }
+
+    // Create truss nodes scattered across a tall virtual space
+    function init() {
+        resize();
+        nodes.length = 0;
+        beams.length = 0;
+        loads.length = 0;
+
+        const pageH = Math.max(document.body.scrollHeight, H * 5);
+
+        for (let i = 0; i < NUM_NODES; i++) {
+            nodes.push({
+                x: Math.random() * W,
+                y: Math.random() * pageH,
+                baseX: 0, baseY: 0,
+                vx: (Math.random() - 0.5) * 0.15,
+                vy: (Math.random() - 0.5) * 0.15,
+                radius: Math.random() * 3 + 2,
+                pinned: Math.random() < 0.12,       // some nodes are supports
+                displaced: 0                          // deformation amount
+            });
+            nodes[i].baseX = nodes[i].x;
+            nodes[i].baseY = nodes[i].y;
+        }
+
+        // Connect nearby nodes as beams (truss members)
+        const maxDist = 280;
+        for (let i = 0; i < nodes.length; i++) {
+            let connections = 0;
+            for (let j = i + 1; j < nodes.length; j++) {
+                const dx = nodes[i].baseX - nodes[j].baseX;
+                const dy = nodes[i].baseY - nodes[j].baseY;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < maxDist && connections < 4) {
+                    beams.push({ a: i, b: j, restLen: dist, stress: 0 });
+                    connections++;
+                }
+            }
+        }
+
+        // Create floating load arrows
+        for (let i = 0; i < 12; i++) {
+            loads.push({
+                x: Math.random() * W,
+                y: Math.random() * pageH,
+                angle: Math.PI / 2 + (Math.random() - 0.5) * 0.5,
+                length: Math.random() * 25 + 15,
+                speed: (Math.random() - 0.5) * 0.3,
+                phase: Math.random() * Math.PI * 2
+            });
+        }
+    }
+
+    function drawTriangleSupport(x, y, size, color) {
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x - size, y + size * 1.5);
+        ctx.lineTo(x + size, y + size * 1.5);
+        ctx.closePath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        // Ground hatch lines
+        for (let i = -1; i <= 1; i++) {
+            ctx.beginPath();
+            ctx.moveTo(x + i * size * 0.6, y + size * 1.5);
+            ctx.lineTo(x + i * size * 0.6 - 4, y + size * 1.8);
+            ctx.stroke();
+        }
+    }
+
+    function drawLoadArrow(x, y, angle, len, color) {
+        const ex = x + Math.cos(angle) * len;
+        const ey = y + Math.sin(angle) * len;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(ex, ey);
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        // Arrow head
+        const headLen = 6;
+        const a1 = angle + Math.PI * 0.8;
+        const a2 = angle - Math.PI * 0.8;
+        ctx.beginPath();
+        ctx.moveTo(ex, ey);
+        ctx.lineTo(ex + Math.cos(a1) * headLen, ey + Math.sin(a1) * headLen);
+        ctx.moveTo(ex, ey);
+        ctx.lineTo(ex + Math.cos(a2) * headLen, ey + Math.sin(a2) * headLen);
+        ctx.stroke();
+    }
+
+    // Draw subtle grid (structural analysis mesh feel)
+    function drawGrid(offset) {
+        const dark = isDark();
+        const alpha = dark ? 0.04 : 0.06;
+        ctx.strokeStyle = dark ? `rgba(129,140,248,${alpha})` : `rgba(59,130,246,${alpha})`;
+        ctx.lineWidth = 0.5;
+
+        const spacing = 60;
+        const shift = (offset * 0.05) % spacing;
+
+        for (let x = -spacing + shift; x < W + spacing; x += spacing) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, H);
+            ctx.stroke();
+        }
+        for (let y = -spacing + shift; y < H + spacing; y += spacing) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(W, y);
+            ctx.stroke();
+        }
+    }
+
+    // Deformation wave based on scroll
+    function getDeformation(node, time) {
+        const scrollFactor = scrollY * 0.002;
+        const wave = Math.sin(node.baseX * 0.005 + time * 0.8 + scrollFactor) * 8;
+        const wave2 = Math.cos(node.baseY * 0.003 + time * 0.5) * 5;
+        return { dx: wave * scrollFactor, dy: wave2 * scrollFactor };
+    }
+
+    let time = 0;
+    function draw() {
+        time += 0.016;
+        ctx.clearRect(0, 0, W, H);
+        const dark = isDark();
+
+        // Background grid
+        drawGrid(scrollY);
+
+        const beamColor = dark ? 'rgba(129,140,248,0.12)' : 'rgba(59,130,246,0.12)';
+        const beamStressColor = dark ? 'rgba(248,113,113,0.3)' : 'rgba(239,68,68,0.25)';
+        const nodeColor = dark ? 'rgba(129,140,248,0.35)' : 'rgba(59,130,246,0.3)';
+        const supportColor = dark ? 'rgba(167,139,250,0.4)' : 'rgba(37,99,235,0.3)';
+        const loadColor = dark ? 'rgba(251,191,36,0.25)' : 'rgba(245,158,11,0.2)';
+
+        // Compute screen positions
+        const screenNodes = nodes.map((n, i) => {
+            const def = getDeformation(n, time);
+            let sx = n.x + def.dx + Math.sin(time * 0.3 + i) * 2;
+            let sy = n.y - scrollY + def.dy;
+
+            // Mouse repulsion
+            const mdx = sx - mouseX;
+            const mdy = sy - mouseY;
+            const md = Math.sqrt(mdx * mdx + mdy * mdy);
+            if (md < MOUSE_RADIUS && md > 0) {
+                const force = (1 - md / MOUSE_RADIUS) * 30;
+                sx += (mdx / md) * force;
+                sy += (mdy / md) * force;
+            }
+
+            return { x: sx, y: sy, visible: sy > -50 && sy < H + 50 };
+        });
+
+        // Draw beams
+        beams.forEach(beam => {
+            const a = screenNodes[beam.a];
+            const b = screenNodes[beam.b];
+            if (!a.visible && !b.visible) return;
+
+            // Calculate "stress" based on deformation
+            const dx = a.x - b.x;
+            const dy = a.y - b.y;
+            const curLen = Math.sqrt(dx * dx + dy * dy);
+            beam.stress = Math.abs(curLen - beam.restLen) / beam.restLen;
+
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+
+            if (beam.stress > 0.1) {
+                ctx.strokeStyle = beamStressColor;
+                ctx.lineWidth = 1.5;
+            } else {
+                ctx.strokeStyle = beamColor;
+                ctx.lineWidth = 1;
+            }
+            ctx.stroke();
+
+            // Dashed center line for beams under stress (structural analysis style)
+            if (beam.stress > 0.15) {
+                ctx.save();
+                ctx.setLineDash([4, 6]);
+                ctx.beginPath();
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
+                ctx.strokeStyle = dark ? 'rgba(248,113,113,0.15)' : 'rgba(239,68,68,0.12)';
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
+                ctx.restore();
+            }
+        });
+
+        // Draw nodes
+        screenNodes.forEach((sn, i) => {
+            if (!sn.visible) return;
+            const node = nodes[i];
+
+            if (node.pinned) {
+                // Draw support symbol (triangle)
+                drawTriangleSupport(sn.x, sn.y, 7, supportColor);
+            }
+
+            // Node circle
+            ctx.beginPath();
+            ctx.arc(sn.x, sn.y, node.radius, 0, Math.PI * 2);
+            ctx.fillStyle = nodeColor;
+            ctx.fill();
+
+            // Outer ring for larger nodes
+            if (node.radius > 3.5) {
+                ctx.beginPath();
+                ctx.arc(sn.x, sn.y, node.radius + 3, 0, Math.PI * 2);
+                ctx.strokeStyle = dark ? 'rgba(129,140,248,0.1)' : 'rgba(59,130,246,0.08)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+        });
+
+        // Draw load arrows
+        loads.forEach(load => {
+            const sy = load.y - scrollY;
+            if (sy < -50 || sy > H + 50) return;
+            const bob = Math.sin(time * 1.2 + load.phase) * 5;
+            drawLoadArrow(load.x, sy + bob, load.angle, load.length, loadColor);
+        });
+
+        // Floating structural formulas/symbols (subtle)
+        const symbols = ['σ', 'ε', 'δ', 'F', 'M', 'τ', 'E', 'I', 'ν'];
+        const symbolAlpha = dark ? 0.06 : 0.07;
+        ctx.font = '14px "Inter", serif';
+        ctx.fillStyle = dark ? `rgba(129,140,248,${symbolAlpha})` : `rgba(59,130,246,${symbolAlpha})`;
+        symbols.forEach((sym, i) => {
+            const sx = ((i * 137 + scrollY * 0.1) % (W + 100)) - 50;
+            const sy = ((i * 211 + scrollY * 0.15 + Math.sin(time + i) * 20) % (H + 100)) - 50;
+            ctx.fillText(sym, sx, sy);
+        });
+
+        requestAnimationFrame(draw);
+    }
+
+    // Slowly drift nodes
+    function updateNodes() {
+        nodes.forEach(n => {
+            n.x += n.vx;
+            n.y += n.vy;
+            // Soft boundary
+            if (n.x < -20 || n.x > W + 20) n.vx *= -1;
+        });
+        setTimeout(updateNodes, 50);
+    }
+
+    window.addEventListener('scroll', () => { scrollY = window.scrollY; });
+    window.addEventListener('resize', () => { resize(); init(); });
+    window.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+    window.addEventListener('mouseleave', () => { mouseX = -1000; mouseY = -1000; });
+
+    // Re-init when theme changes to update colors immediately
+    document.getElementById('themeToggle').addEventListener('click', () => {
+        setTimeout(() => draw(), 50);
+    });
+
+    init();
+    updateNodes();
+    draw();
+})();
+
+// ============================================
 // PARTICLES (Hero background)
 // ============================================
 function createParticles() {
