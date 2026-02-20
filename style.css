@@ -186,51 +186,54 @@ code {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 0;
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-    transition: all 0.25s ease;
+    border-radius: 50px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .nav-links a svg {
     flex-shrink: 0;
 }
 
+.nav-label {
+    max-width: 0;
+    overflow: hidden;
+    opacity: 0;
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+}
+
 .nav-links a:hover {
     color: var(--accent);
     background: var(--accent-bg);
+    width: auto;
+    padding: 0 16px;
+    gap: 7px;
+}
+
+.nav-links a:hover .nav-label {
+    max-width: 80px;
+    opacity: 1;
 }
 
 .nav-links a.active {
     color: #fff;
     background: var(--accent);
+    width: auto;
+    padding: 0 16px;
+    gap: 7px;
 }
 
-/* Tooltip on hover */
-.nav-links a::after {
-    content: attr(title);
-    position: absolute;
-    bottom: -32px;
-    left: 50%;
-    transform: translateX(-50%) translateY(4px);
-    background: var(--bg-card);
-    color: var(--text-primary);
-    font-size: 0.72rem;
-    font-weight: 500;
-    padding: 4px 10px;
-    border-radius: 6px;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.2s ease;
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-sm);
-}
-
-.nav-links a:hover::after {
+.nav-links a.active .nav-label {
+    max-width: 80px;
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
 }
 
 .nav-actions {
