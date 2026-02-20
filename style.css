@@ -2,39 +2,39 @@
    THEME VARIABLES
    ============================================ */
 :root {
-    /* Light Theme */
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8f9fc;
-    --bg-card: #ffffff;
-    --bg-card-hover: #f0f4ff;
-    --bg-navbar: rgba(255, 255, 255, 0.85);
-    --bg-code: #f1f3f5;
-    --text-primary: #1a1a2e;
-    --text-secondary: #4a4a6a;
-    --text-muted: #8888a0;
-    --accent: #4f46e5;
-    --accent-light: #818cf8;
-    --accent-bg: rgba(79, 70, 229, 0.08);
-    --accent-bg-hover: rgba(79, 70, 229, 0.15);
-    --border: #e5e7eb;
-    --border-light: #f0f0f5;
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.12);
-    --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --gradient-card: linear-gradient(135deg, rgba(79, 70, 229, 0.05), rgba(129, 140, 248, 0.05));
-    --gpa-ring-color: #4f46e5;
-    --tag-bg: #eef2ff;
-    --tag-text: #4338ca;
-    --grade-a-bg: #dcfce7;
-    --grade-a-text: #166534;
+    /* Light Theme — Light Blue / Near-White */
+    --bg-primary: #f0f6ff;
+    --bg-secondary: #e6eefb;
+    --bg-card: #f7faff;
+    --bg-card-hover: #e0ebfa;
+    --bg-navbar: rgba(235, 243, 255, 0.9);
+    --bg-code: #e4ecf7;
+    --text-primary: #1a2740;
+    --text-secondary: #3e5475;
+    --text-muted: #7a92b0;
+    --accent: #3b82f6;
+    --accent-light: #60a5fa;
+    --accent-bg: rgba(59, 130, 246, 0.1);
+    --accent-bg-hover: rgba(59, 130, 246, 0.18);
+    --border: #c9daf0;
+    --border-light: #dce8f8;
+    --shadow-sm: 0 1px 3px rgba(30, 60, 120, 0.06);
+    --shadow-md: 0 4px 16px rgba(30, 60, 120, 0.08);
+    --shadow-lg: 0 8px 32px rgba(30, 60, 120, 0.1);
+    --shadow-xl: 0 16px 48px rgba(30, 60, 120, 0.12);
+    --gradient-hero: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --gradient-card: linear-gradient(135deg, rgba(59, 130, 246, 0.06), rgba(96, 165, 250, 0.06));
+    --gpa-ring-color: #3b82f6;
+    --tag-bg: #dbeafe;
+    --tag-text: #1d4ed8;
+    --grade-a-bg: #d1fae5;
+    --grade-a-text: #065f46;
     --grade-b-bg: #dbeafe;
     --grade-b-text: #1e40af;
-    --grade-c-bg: #fef9c3;
-    --grade-c-text: #854d0e;
-    --hero-overlay: rgba(0, 0, 0, 0.03);
-    --particle-color: rgba(79, 70, 229, 0.15);
+    --grade-c-bg: #fef3c7;
+    --grade-c-text: #92400e;
+    --hero-overlay: rgba(240, 246, 255, 0.03);
+    --particle-color: rgba(59, 130, 246, 0.15);
 }
 
 [data-theme="dark"] {
