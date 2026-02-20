@@ -139,8 +139,8 @@ code {
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--border);
     border-radius: 50px;
-    transition: all 0.3s ease;
-    width: auto;
+    transition: box-shadow 0.3s ease, background 0.3s ease;
+    width: 860px;
     max-width: 95vw;
     padding: 0 8px;
 }
@@ -179,6 +179,8 @@ code {
     list-style: none;
     gap: 2px;
     align-items: center;
+    flex: 1;
+    justify-content: center;
 }
 
 .nav-links a {
