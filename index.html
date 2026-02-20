@@ -253,83 +253,67 @@
 
             <div class="courses-filter">
                 <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="core">Core</button>
-                <button class="filter-btn" data-filter="elective">Elective</button>
-                <button class="filter-btn" data-filter="data">Data Science</button>
+                <button class="filter-btn" data-filter="bsc">🎓 B.Sc.</button>
+                <button class="filter-btn" data-filter="msc">🎓 M.Sc.</button>
             </div>
 
             <div class="courses-grid">
-                <div class="course-card" data-category="core">
-                    <div class="course-icon">🔧</div>
-                    <h4>Mechanics of Materials</h4>
-                    <p>Stress and strain analysis, beam bending, torsion, and failure theories for engineering structures.</p>
-                    <div class="course-meta">
-                        <span class="course-tag">Core</span>
-                    </div>
-                </div>
-                <div class="course-card" data-category="core">
-                    <div class="course-icon">🧮</div>
-                    <h4>Finite Element Methods</h4>
-                    <p>Numerical methods for solving structural and thermal problems, mesh generation, convergence analysis, and FEM simulations.</p>
-                    <div class="course-meta">
-                        <span class="course-tag">Core</span>
-                    </div>
-                </div>
-                <div class="course-card" data-category="core">
-                    <div class="course-icon">✈️</div>
-                    <h4>Aircraft Structures</h4>
-                    <p>Analysis of aerospace structures including thin-walled beams, shear flow, buckling, and structural design for flight loads.</p>
-                    <div class="course-meta">
-                        <span class="course-tag">Core</span>
-                    </div>
-                </div>
-                <div class="course-card" data-category="elective">
+                <!-- M.Sc. Courses -->
+                <div class="course-card" data-category="msc">
                     <div class="course-icon">🧱</div>
+                    <span class="degree-badge msc">M.Sc.</span>
                     <h4>Composite Materials</h4>
                     <p>Mechanics of fiber-reinforced composites, laminate theory, failure criteria, and manufacturing processes.</p>
-                    <div class="course-meta">
-                        <span class="course-tag">Elective</span>
-                    </div>
                 </div>
-                <div class="course-card" data-category="core">
+
+                <!-- B.Sc. Courses -->
+                <div class="course-card" data-category="bsc">
+                    <div class="course-icon">🔧</div>
+                    <span class="degree-badge bsc">B.Sc.</span>
+                    <h4>Mechanics of Materials</h4>
+                    <p>Stress and strain analysis, beam bending, torsion, and failure theories for engineering structures.</p>
+                </div>
+                <div class="course-card" data-category="bsc">
+                    <div class="course-icon">🧮</div>
+                    <span class="degree-badge bsc">B.Sc.</span>
+                    <h4>Finite Element Methods</h4>
+                    <p>Numerical methods for solving structural and thermal problems, mesh generation, convergence analysis, and FEM simulations.</p>
+                </div>
+                <div class="course-card" data-category="bsc">
+                    <div class="course-icon">✈️</div>
+                    <span class="degree-badge bsc">B.Sc.</span>
+                    <h4>Aircraft Structures</h4>
+                    <p>Analysis of aerospace structures including thin-walled beams, shear flow, buckling, and structural design for flight loads.</p>
+                </div>
+                <div class="course-card" data-category="bsc">
                     <div class="course-icon">⚙️</div>
+                    <span class="degree-badge bsc">B.Sc.</span>
                     <h4>Dynamics</h4>
                     <p>Kinematics and kinetics of particles and rigid bodies, energy methods, and vibration fundamentals.</p>
-                    <div class="course-meta">
-                        <span class="course-tag">Core</span>
-                    </div>
                 </div>
-                <div class="course-card" data-category="elective">
+                <div class="course-card" data-category="bsc">
                     <div class="course-icon">🔥</div>
+                    <span class="degree-badge bsc">B.Sc.</span>
                     <h4>Heat Transfer</h4>
                     <p>Conduction, convection, and radiation heat transfer analysis with applications in thermal management systems.</p>
-                    <div class="course-meta">
-                        <span class="course-tag">Elective</span>
-                    </div>
                 </div>
-                <div class="course-card" data-category="core">
+                <div class="course-card" data-category="bsc">
                     <div class="course-icon">📈</div>
+                    <span class="degree-badge bsc">B.Sc.</span>
                     <h4>Probability and Statistics</h4>
                     <p>Probability theory, statistical inference, regression analysis, and hypothesis testing for engineering applications.</p>
-                    <div class="course-meta">
-                        <span class="course-tag">Core</span>
-                    </div>
                 </div>
-                <div class="course-card" data-category="data">
+                <div class="course-card" data-category="bsc">
                     <div class="course-icon">📊</div>
+                    <span class="degree-badge bsc">B.Sc.</span>
                     <h4>Foundations of Data Science</h4>
                     <p>Data crawling, exploratory analysis, network analysis, clustering, community detection, and RAG-based AI research assistants.</p>
-                    <div class="course-meta">
-                        <span class="course-tag">Data Science</span>
-                    </div>
                 </div>
-                <div class="course-card" data-category="core">
+                <div class="course-card" data-category="bsc">
                     <div class="course-icon">🛩️</div>
+                    <span class="degree-badge bsc">B.Sc.</span>
                     <h4>Aircraft Design</h4>
                     <p>Multi-phase aerospace design process including structural design, 3D CAD modeling, stress analysis, and configuration selection.</p>
-                    <div class="course-meta">
-                        <span class="course-tag">Core</span>
-                    </div>
                 </div>
             </div>
         </div>
@@ -421,6 +405,8 @@
             <h2 class="section-title">Teaching Experience</h2>
             <p class="section-subtitle">My experience as a Teaching Assistant (TA).</p>
 
+            <!-- M.Sc. TA -->
+            <h3 class="teaching-degree-heading"><span class="degree-badge msc">M.Sc.</span> Master's — Sharif University of Technology</h3>
             <div class="teaching-grid">
                 <div class="teaching-card">
                     <div class="teaching-semester">Fall 2025</div>
@@ -465,6 +451,11 @@
                         <span>Quizzes</span>
                     </div>
                 </div>
+            </div>
+
+            <!-- B.Sc. TA -->
+            <h3 class="teaching-degree-heading"><span class="degree-badge bsc">B.Sc.</span> Bachelor's — Sharif University of Technology</h3>
+            <div class="teaching-grid">
                 <div class="teaching-card">
                     <div class="teaching-semester">Spring 2025</div>
                     <h4>Finite Element Methods</h4>
