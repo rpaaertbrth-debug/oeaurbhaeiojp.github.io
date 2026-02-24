@@ -151,14 +151,62 @@ code {
     width: 100%;
     height: 100%;
     z-index: 2147483647;
-    background: transparent;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     pointer-events: none;
     isolation: isolate;
+    padding: calc(56px + max(8px, env(safe-area-inset-top, 8px))) max(16px, env(safe-area-inset-right, 16px)) max(24px, env(safe-area-inset-bottom, 24px)) max(16px, env(safe-area-inset-left, 16px));
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .mobile-menu-overlay.active {
     display: block;
     pointer-events: auto;
+}
+
+.mobile-nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.mobile-nav-links a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    min-height: 52px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.mobile-nav-links a:hover,
+.mobile-nav-links a:focus,
+.mobile-nav-links a.active {
+    background: var(--accent-bg);
+    color: var(--accent);
+}
+
+.mobile-nav-links a svg {
+    flex-shrink: 0;
+}
+
+/* Never show overlay on desktop */
+@media (min-width: 769px) {
+    .mobile-menu-overlay {
+        display: none !important;
+    }
 }
 
 /* Safe area for notched devices (iPhone X+) */

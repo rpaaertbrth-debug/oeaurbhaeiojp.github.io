@@ -48,6 +48,7 @@ onScroll(); // Initial state on load
 function updateActiveNav() {
     const sections = document.querySelectorAll('.section, .hero');
     const navLinks = document.querySelectorAll('.nav-links a');
+    const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
     let current = '';
     const scrollY = getScrollY();
 
@@ -58,7 +59,7 @@ function updateActiveNav() {
         }
     });
 
-    navLinks.forEach(link => {
+    [...navLinks, ...mobileLinks].forEach(link => {
         link.classList.remove('active');
         if (link.getAttribute('href') === `#${current}`) {
             link.classList.add('active');
@@ -70,9 +71,8 @@ function updateActiveNav() {
 // MOBILE NAVIGATION
 // ============================================
 const navHamburger = document.getElementById('navHamburger');
-const navLinks = document.getElementById('navLinks');
-const navContainer = document.querySelector('.nav-container');
 const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+const mobileNavLinks = document.getElementById('mobileNavLinks');
 
 function closeMobileNav() {
     if (navHamburger) navHamburger.classList.remove('active');
@@ -80,16 +80,8 @@ function closeMobileNav() {
         mobileMenuOverlay.classList.remove('active');
         mobileMenuOverlay.setAttribute('aria-hidden', 'true');
     }
-    if (navLinks) {
-        navLinks.classList.remove('active');
-        document.body.style.overflow = '';
-        if (mainScroll) mainScroll.style.overflow = '';
-        // Move nav-links back inside navbar (for desktop layout)
-        if (navContainer && navLinks.parentNode !== navContainer) {
-            const navActions = navContainer.querySelector('.nav-actions');
-            navContainer.insertBefore(navLinks, navActions);
-        }
-    }
+    document.body.style.overflow = '';
+    if (mainScroll) mainScroll.style.overflow = '';
 }
 
 function openMobileNav() {
@@ -97,35 +89,30 @@ function openMobileNav() {
     if (mobileMenuOverlay) {
         mobileMenuOverlay.classList.add('active');
         mobileMenuOverlay.setAttribute('aria-hidden', 'false');
-        // Move nav-links into overlay (first child of body = top of stacking order)
-        if (navLinks && navLinks.parentNode !== mobileMenuOverlay) {
-            mobileMenuOverlay.appendChild(navLinks);
-        }
     }
-    if (navLinks) {
-        navLinks.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        if (mainScroll) mainScroll.style.overflow = 'hidden';
-    }
+    document.body.style.overflow = 'hidden';
+    if (mainScroll) mainScroll.style.overflow = 'hidden';
 }
 
-if (navHamburger && navLinks) {
+if (navHamburger && mobileMenuOverlay) {
     navHamburger.addEventListener('click', () => {
-        if (navLinks.classList.contains('active')) {
+        if (mobileMenuOverlay.classList.contains('active')) {
             closeMobileNav();
         } else {
             openMobileNav();
         }
     });
 
-    // Close mobile nav on link click
-    navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', closeMobileNav);
-    });
+    // Close when clicking a link
+    if (mobileNavLinks) {
+        mobileNavLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeMobileNav);
+        });
+    }
 
-    // Close mobile nav when clicking overlay (backdrop)
-    navLinks.addEventListener('click', (e) => {
-        if (!e.target.closest('a')) closeMobileNav();
+    // Close when clicking overlay backdrop (not on a link)
+    mobileMenuOverlay.addEventListener('click', (e) => {
+        if (e.target === mobileMenuOverlay) closeMobileNav();
     });
 }
 
