@@ -20,9 +20,14 @@ themeToggle.addEventListener('click', () => {
 // ============================================
 const navbar = document.getElementById('navbar');
 const backToTop = document.getElementById('backToTop');
+const mainScroll = document.querySelector('.main-scroll');
 
-window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
+function getScrollY() {
+    return mainScroll ? mainScroll.scrollTop : window.scrollY;
+}
+
+function onScroll() {
+    const scrollY = getScrollY();
 
     // Navbar shadow
     navbar.classList.toggle('scrolled', scrollY > 50);
@@ -32,7 +37,10 @@ window.addEventListener('scroll', () => {
 
     // Active nav link
     updateActiveNav();
-});
+}
+
+(mainScroll || window).addEventListener('scroll', onScroll);
+onScroll(); // Initial state on load
 
 // ============================================
 // ACTIVE NAV LINK HIGHLIGHTER
@@ -41,10 +49,11 @@ function updateActiveNav() {
     const sections = document.querySelectorAll('.section, .hero');
     const navLinks = document.querySelectorAll('.nav-links a');
     let current = '';
+    const scrollY = getScrollY();
 
     sections.forEach(section => {
         const sectionTop = section.offsetTop - 100;
-        if (window.scrollY >= sectionTop) {
+        if (scrollY >= sectionTop) {
             current = section.getAttribute('id');
         }
     });
@@ -80,7 +89,8 @@ navLinks.querySelectorAll('a').forEach(link => {
 // BACK TO TOP
 // ============================================
 backToTop.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const target = mainScroll || window;
+    target.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
 // ============================================
